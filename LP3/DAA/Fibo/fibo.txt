@@ -1,0 +1,47 @@
+
+public class Fibonacci {
+
+    static int stepCount = 0;  // Variable to count the number of steps
+
+    // Non-recursive function to calculate Fibonacci number
+    public static int iterativeFibonacci(int n) {
+        stepCount = 0;  // Reset step count for iterative calculation
+        if (n <= 1) {
+            return n;
+        }
+
+        int a = 0, b = 1, c;
+        
+        // Using the loop style you provided
+        for (int i = 0; i < n; i++) {
+            c = a + b;   // The next Fibonacci number
+            a = b;       // Move to the next pair
+            b = c;       // Update b to the new Fibonacci number
+            stepCount++; // Increment step count for each loop iteration
+        }
+        return a;  // Return the Fibonacci number after loop completion
+    }
+
+    // Recursive function to calculate Fibonacci number
+    public static int recursiveFibonacci(int n) {
+        stepCount++;  // Increment step count for each function call
+        if (n <= 1) {
+            return n;
+        }
+        return recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2);
+    }
+
+    public static void main(String[] args) {
+        int n = 10; // Find the 10th Fibonacci number
+
+        // Iterative Fibonacci calculation
+        stepCount = 0;  // Reset step count
+        System.out.println("Iterative Fibonacci of " + n + " is: " + iterativeFibonacci(n));
+        System.out.println("Number of steps (Iterative): " + stepCount);
+
+        // Recursive Fibonacci calculation
+        stepCount = 0;  // Reset step count
+        System.out.println("Recursive Fibonacci of " + n + " is: " + recursiveFibonacci(n));
+        System.out.println("Number of steps (Recursive): " + stepCount);
+    }
+}

@@ -1,0 +1,24 @@
+
+import java.util.Comparator;
+
+class HuffmanNode {
+    char ch;
+    int frequency;
+    HuffmanNode left;
+    HuffmanNode right;
+
+    // Constructor
+    public HuffmanNode(char ch, int frequency) {
+        this.ch = ch;
+        this.frequency = frequency;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+// Comparator for PriorityQueue
+class HuffmanComparator implements Comparator<HuffmanNode> {
+    public int compare(HuffmanNode a, HuffmanNode b) {
+        return a.frequency - b.frequency;
+    }
+}

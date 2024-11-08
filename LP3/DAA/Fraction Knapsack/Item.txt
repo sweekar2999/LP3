@@ -1,0 +1,15 @@
+import java.util.Arrays;
+
+class Item {
+    int weight;
+    int value;
+    double ratio;
+
+    // Constructor to initialize weight, value and calculate ratio
+    public Item(int weight, int value) {
+        this.weight = weight;
+        this.value = value;
+        this.ratio = (double) value / weight; // Calculate value-to-weight ratio
+    }
+}
+

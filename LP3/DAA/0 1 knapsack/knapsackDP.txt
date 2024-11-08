@@ -1,0 +1,56 @@
+
+import java.util.Scanner;
+
+public class knapsackDP {
+    // Function to solve the 0-1 Knapsack problem using Dynamic Programming
+    public static int knapsack(int[] weights, int[] values, int capacity, int n) {
+        // dp[i][j] will store the maximum value that can be attained
+        // with weight less than or equal to j using items up to i
+        int[][] dp = new int[n + 1][capacity + 1];
+
+        // Build the dp matrix
+        for (int i = 1; i <= n; i++) {
+            for (int w = 1; w <= capacity; w++) {
+                if (weights[i - 1] <= w) {
+                    // Either include the item i-1 or exclude it
+                    dp[i][w] = Math.max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w]);
+                } else {
+                    // If the item i-1 weight is greater than w, exclude it
+                    dp[i][w] = dp[i - 1][w];
+                }
+            }
+        }
+
+        // The maximum value with the given capacity and items
+        return dp[n][capacity];
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input number of items
+        System.out.print("Enter the number of items: ");
+        int n = scanner.nextInt();
+
+        // Input weights and values of items
+        int[] weights = new int[n];
+        int[] values = new int[n];
+        System.out.println("Enter the weights and values of each item:");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Weight of item " + (i + 1) + ": ");
+            weights[i] = scanner.nextInt();
+            System.out.print("Value of item " + (i + 1) + ": ");
+            values[i] = scanner.nextInt();
+        }
+
+        // Input knapsack capacity
+        System.out.print("Enter the capacity of knapsack: ");
+        int capacity = scanner.nextInt();
+
+        // Calculate and display the maximum value
+        int maxValue = knapsack(weights, values, capacity, n);
+        System.out.println("Maximum value in Knapsack = " + maxValue);
+
+        scanner.close();
+    }
+}

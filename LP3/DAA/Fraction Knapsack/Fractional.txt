@@ -1,0 +1,53 @@
+
+import java.util.Arrays;
+
+
+
+class FractionalKnapsack {
+    
+    // Function to get the maximum total value in the knapsack
+    public static double getMaxValue(Item[] items, int capacity) {
+        
+        // Sort items by descending ratio (value-to-weight)
+        // Manually sort the items array based on the ratio
+        for (int i = 0; i < items.length - 1; i++) {
+            for (int j = 0; j < items.length - i - 1; j++) {
+                if (items[j].ratio < items[j + 1].ratio) {
+                    // Swap items[j] and items[j+1] to sort in descending order
+                    Item temp = items[j];
+                    items[j] = items[j + 1];
+                    items[j + 1] = temp;
+                }
+            }
+        }
+        
+        double totalValue = 0.0;
+        
+        for (Item item : items) {
+            if (capacity >= item.weight) {
+                // Take the whole item if it fits
+                capacity -= item.weight;
+                totalValue += item.value;
+            } else {
+                // Take only the fraction that fits
+                totalValue += item.value * ((double) capacity / item.weight);
+                break; // Knapsack is full
+            }
+        }
+        
+        return totalValue;
+    }
+    
+    public static void main(String[] args) {
+        // Define items with weights and values
+        Item[] items = { new Item(10, 60), new Item(20, 100), new Item(30, 120) };
+        
+        // Define knapsack capacity
+        int capacity = 50;
+        
+        // Get maximum value for the knapsack
+        double maxValue = getMaxValue(items, capacity);
+        
+        System.out.println("Maximum value in Knapsack = " + maxValue);
+    }
+}
